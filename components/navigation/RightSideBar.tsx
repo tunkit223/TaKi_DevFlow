@@ -22,7 +22,7 @@ const popularTags =[
 
 const RightSideBar = () => {
   return (
-    <section className='pt-20 custom-scrollbar background-light900_dark200 light-border 
+    <section className='pt-24 custom-scrollbar background-light900_dark200 light-border 
                       sticky right-0 top-0 flex h-screen w-[350px] flex-col gap-1 
                       overflow-y-auto border-l p-6 shadow-light-300 dark:shadow-none max-xl:hidden'>
       <div>
