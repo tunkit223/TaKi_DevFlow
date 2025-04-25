@@ -1,3 +1,4 @@
+import HomeFilters from "@/components/filters/HomeFilters";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/route";
@@ -12,7 +13,7 @@ const questions = [
     tags: [
       {_id:"1", name: "Next.js"},
       {_id:"2", name: "React"},
-      {_id:"3", name: "JavaScript"},
+      {_id:"3", name: "React"},
     ], 
     author:{_id:"1", name: "John Doe", image:"/images/author.png"},
     upvote: 10,
@@ -26,7 +27,7 @@ const questions = [
     description:" Next.js is a React framework that enables server-side rendering and static site generation. It allows developers to build fast and optimized web applications with ease.",
     tags: [
       {_id:"1", name: "Next.js"},
-      {_id:"2", name: "React"},
+      {_id:"2", name: "Javascript"},
       {_id:"3", name: "JavaScript"},
     ], 
     author:{_id:"1", name: "John Doe", image:"/images/author.png"},
@@ -42,10 +43,19 @@ interface SearchParams {
 }
 export default async function Home({searchParams}:SearchParams) {
 
-  const {query=""} = await searchParams;
-  const filterQuestions = questions.filter((question) => 
-    question.title.toLowerCase().includes(query?.toLowerCase())
-  );
+  const {query = "",filter = ""} = await searchParams;
+
+  const filterQuestions = questions.filter((question) => {
+    const matchesQuery = question.title
+          .toLowerCase()
+          .includes(query.toLowerCase());
+    const matchesFilter = filter
+          ? question.tags.some((tag) => 
+            tag.name.toLowerCase() === filter.toLowerCase()):true
+          return matchesQuery && matchesFilter;
+  }
+)
+  
  
   return (
     <>
@@ -67,7 +77,7 @@ export default async function Home({searchParams}:SearchParams) {
       />
     </section>
 
-    {/* HomeFilter */}
+   <HomeFilters/>
 
     <div className="mt-10 flex w-full flex-col gap-6">
       {filterQuestions.map((question) => (
