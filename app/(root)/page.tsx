@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/route";
 import errorHandler from "@/lib/handlers/error";
 import { NotFoundError } from "@/lib/http-error";
+import dbConnect from "@/lib/mongoose";
 import { create } from "domain";
 import Link from "next/link";
 
@@ -43,7 +44,7 @@ const questions = [
 
 const test = async () =>{
   try {
-    throw new NotFoundError("Test error")
+    throw new Error("Test error")
   } catch (error) {
     return errorHandler(error)
   }
@@ -54,8 +55,8 @@ interface SearchParams {
 }
 export default async function Home({searchParams}:SearchParams) {
 
-  const result = await test()
-  console.log(result)
+  await test()
+  
 
   const {query = "",filter = ""} = await searchParams;
 
