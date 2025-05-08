@@ -3,6 +3,7 @@ import HomeFilters from "@/components/filters/HomeFilters";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/route";
+import { api } from "@/lib/api";
 import errorHandler from "@/lib/handlers/error";
 import { NotFoundError } from "@/lib/http-error";
 import dbConnect from "@/lib/mongoose";
@@ -44,7 +45,7 @@ const questions = [
 
 const test = async () =>{
   try {
-    throw new Error("Test error")
+    return await api.users.update('6819d36e16cc521a3b0b9922',{name:'TaKi Group'});
   } catch (error) {
     return errorHandler(error)
   }
@@ -55,8 +56,8 @@ interface SearchParams {
 }
 export default async function Home({searchParams}:SearchParams) {
 
-  await test()
-  
+ const updateUser = await test()
+ console.log(updateUser)
 
   const {query = "",filter = ""} = await searchParams;
 
